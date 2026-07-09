@@ -21,7 +21,7 @@ export const people = pgTable(
     department: text('department'),
     linkedin_url: text('linkedin_url'),
     email: text('email'),
-    confidence: integer('confidence').default(0), // 0-100 confidence score
+    confidence: integer('confidence').default(0),
     created_at: timestamp('created_at', { withTimezone: true }).notNull().default(sql`now()`),
     updated_at: timestamp('updated_at', { withTimezone: true }).notNull().default(sql`now()`),
   },

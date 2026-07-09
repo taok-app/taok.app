@@ -11,7 +11,7 @@ export const messages = pgTable(
       .references(() => researchSessions.id, { onDelete: 'cascade' }),
     role: text('role', { enum: ['user', 'assistant'] }).notNull(),
     content: text('content').notNull(),
-    metadata: jsonb('metadata'), // Tool calls, citations, etc
+    metadata: jsonb('metadata'),
     created_at: timestamp('created_at', { withTimezone: true }).notNull().default(sql`now()`),
   },
   (table) => [

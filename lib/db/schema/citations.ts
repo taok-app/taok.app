@@ -15,8 +15,8 @@ export const citations = pgTable(
     source_id: varchar('source_id', { length: 26 })
       .notNull()
       .references(() => sources.id, { onDelete: 'cascade' }),
-    claim: text('claim').notNull(), // The specific claim/fact being cited
-    confidence: integer('confidence').default(0), // 0-100 confidence in the claim
+    claim: text('claim').notNull(),
+    confidence: integer('confidence').default(0),
     created_at: timestamp('created_at', { withTimezone: true }).notNull().default(sql`now()`),
   },
   (table) => [

@@ -20,7 +20,7 @@ export const companies = pgTable(
     employee_count: integer('employee_count'),
     revenue_range: text('revenue_range'),
     funding_stage: text('funding_stage'),
-    confidence: integer('confidence').default(0), // 0-100 confidence score
+    confidence: integer('confidence').default(0),
     created_at: timestamp('created_at', { withTimezone: true }).notNull().default(sql`now()`),
     updated_at: timestamp('updated_at', { withTimezone: true }).notNull().default(sql`now()`),
   },

@@ -21,9 +21,26 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Taok - AI-native GTM Workspace',
-  description: 'The AI research and intelligence platform for Go-To-Market teams. Research companies, discover leads, and execute with confidence.',
-  generator: 'v0.app',
+  title: 'Taok — AI-native GTM Workspace',
+  description: 'Taok is an AI-native GTM Workspace. Research companies, discover decision makers, and turn market signals into pipeline.',
+  metadataBase: new URL('https://taok.app'),
+  openGraph: {
+    type: 'website',
+    url: 'https://taok.app',
+    title: 'Taok — AI-native GTM Workspace',
+    description: 'Taok is an AI-native GTM Workspace. Research companies, discover decision makers, and turn market signals into pipeline.',
+    siteName: 'Taok',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Taok — AI-native GTM Workspace',
+    description: 'Research before every decision. AI that helps GTM teams move from intelligence to execution.',
+    site: '@taokapp',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({

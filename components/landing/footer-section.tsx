@@ -4,16 +4,16 @@ import { ArrowUpRight } from "lucide-react";
 import { AnimatedWave } from "./animated-wave";
 
 const footerLinks = {
-  Product: [
-    { name: "Features", href: "#features" },
+  Workspace: [
+    { name: "Research", href: "#features" },
     { name: "How it works", href: "#how-it-works" },
-    { name: "Pricing", href: "#pricing" },
     { name: "Integrations", href: "#integrations" },
+    { name: "Pricing", href: "#pricing" },
   ],
-  Developers: [
-    { name: "Documentation", href: "#developers" },
+  Platform: [
     { name: "API Reference", href: "#" },
-    { name: "SDK", href: "#developers" },
+    { name: "Documentation", href: "#" },
+    { name: "Changelog", href: "#" },
     { name: "Status", href: "#" },
   ],
   Company: [

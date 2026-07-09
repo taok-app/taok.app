@@ -172,7 +172,7 @@ export function PricingSection() {
 
         {/* Bottom Note */}
         <p className="mt-12 text-center text-sm text-muted-foreground">
-          All plans include automatic updates, HTTPS, and DDoS protection.{" "}
+          All plans include SOC 2 compliant data handling, team seats, and onboarding support.{" "}
           <a href="#" className="underline underline-offset-4 hover:text-foreground transition-colors">
             Compare all features
           </a>

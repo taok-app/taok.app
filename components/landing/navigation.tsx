@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "Features", href: "#features" },
+  { name: "Research", href: "#features" },
   { name: "How it works", href: "#how-it-works" },
-  { name: "Developers", href: "#developers" },
+  { name: "Integrations", href: "#integrations" },
   { name: "Pricing", href: "#pricing" },
 ];
 

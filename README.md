@@ -1,33 +1,52 @@
-# taok.app
+# Taok
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+**AI-native GTM Workspace.**
 
-## Built with v0
+Research companies. Discover decision makers. Turn market signals into pipeline.
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+[taok.app](https://taok.app)
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_YpVmFAeA2uv74xLrjJ2TfAfzbBuw)
+---
 
-## Getting Started
+## What is Taok?
 
-First, run the development server:
+Taok is not a CRM. Not a database. Not a chatbot.
+
+Taok is the AI workspace where GTM teams move from research to execution. It combines company intelligence, people discovery, signal monitoring, AI agents, and workflow automation into one workspace.
+
+**Core capabilities:**
+
+- Company Research
+- People Intelligence
+- Signal Detection
+- AI Agents
+- Workflow Automation
+- Knowledge Workspace
+- Team Collaboration
+
+---
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org) — App Router
+- [React 19](https://react.dev)
+- [TypeScript](https://typescriptlang.org)
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Vercel Analytics](https://vercel.com/analytics)
+
+---
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the workspace.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-## Learn More
+## Deployment
 
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+Every merge to `main` deploys automatically to [taok.app](https://taok.app) via Vercel.

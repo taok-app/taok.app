@@ -82,7 +82,7 @@ function DeployVisual() {
 
 function AIVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" suppressHydrationWarning>
       {/* Central node */}
       <circle cx="100" cy="80" r="12" fill="currentColor">
         <animate attributeName="r" values="12;14;12" dur="2s" repeatCount="indefinite" />
@@ -93,7 +93,7 @@ function AIVisual() {
         const angle = (i * 60) * (Math.PI / 180);
         const radius = 50;
         return (
-          <g key={i}>
+          <g key={i} suppressHydrationWarning>
             {/* Connection line */}
             <line
               x1="100"

@@ -6,11 +6,13 @@ export default defineConfig({
     include: ["packages/**/*.test.ts"],
     coverage: {
       provider: "v8",
-      include: ["packages/research/extraction/**/*.ts"],
+      include: ["packages/research/{extraction,processing}/**/*.ts"],
       exclude: [
-        "packages/research/extraction/index.ts",
-        "packages/research/extraction/types.ts",
-        "packages/research/extraction/**/*.d.ts",
+        "packages/research/{extraction,processing}/index.ts",
+        "packages/research/{extraction,processing}/types.ts",
+        "packages/research/{extraction,processing}/**/*.d.ts",
+        "packages/research/{extraction,processing}/**/*.test.ts",
+        "packages/research/processing/processor.ts",
       ],
       thresholds: {
         branches: 95,

@@ -10,7 +10,9 @@
     "start": "next start",
     "test": "vitest run",
     "test:extraction": "vitest run packages/research/extraction",
-    "test:extraction:coverage": "vitest run packages/research/extraction --coverage"
+    "test:extraction:coverage": "vitest run packages/research/extraction --coverage --coverage.include='packages/research/extraction/**/*.ts'",
+    "test:processing": "vitest run packages/research/processing",
+    "test:processing:coverage": "vitest run packages/research/processing --coverage --coverage.include='packages/research/processing/**/*.ts'"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

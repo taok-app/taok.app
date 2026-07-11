@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { name: "Research", href: "#features" },
@@ -14,6 +15,8 @@ const navLinks = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,29 +26,63 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    let mounted = true;
+    fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then((json) => {
+        if (!mounted) return;
+        const user = json?.data?.user ?? null;
+        setIsAuthenticated(Boolean(user));
+      })
+      .catch(() => setIsAuthenticated(false));
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const handleStartResearch = () => {
+    if (isAuthenticated === null) {
+      // unknown => go to sign-up as safe default
+      router.push("/sign-up");
+      return;
+    }
+    if (isAuthenticated) {
+      router.push("/workspace");
+    } else {
+      router.push("/sign-up");
+    }
+  };
+
+  const handleSignIn = () => router.push("/sign-in");
+
   return (
     <header
       className={`fixed z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "top-4 left-4 right-4" 
-          : "top-0 left-0 right-0"
+        isScrolled ? "top-4 left-4 right-4" : "top-0 left-0 right-0"
       }`}
     >
-      <nav 
+      <nav
         className={`mx-auto transition-all duration-500 ${
           isScrolled || isMobileMenuOpen
             ? "bg-background/80 backdrop-blur-xl border border-foreground/10 rounded-2xl shadow-lg max-w-[1200px]"
             : "bg-transparent max-w-[1400px]"
         }`}
       >
-        <div 
+        <div
           className={`flex items-center justify-between transition-all duration-500 px-6 lg:px-8 ${
             isScrolled ? "h-14" : "h-20"
           }`}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>Taok</span>
+          <a onClick={() => router.push("/")} className="flex items-center gap-2 group cursor-pointer">
+            <span
+              className={`font-display tracking-tight transition-all duration-500 ${
+                isScrolled ? "text-xl" : "text-2xl"
+              }`}
+            >
+              Taok
+            </span>
           </a>
 
           {/* Desktop Navigation */}
@@ -64,39 +101,36 @@ export function Navigation() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="#" className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${isScrolled ? "text-xs" : "text-sm"}`}>
+            <button
+              onClick={handleSignIn}
+              className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${
+                isScrolled ? "text-xs" : "text-sm"
+              }`}
+            >
               Sign in
-            </a>
+            </button>
             <Button
               size="sm"
-              className={`bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-500 ${isScrolled ? "px-4 h-8 text-xs" : "px-6"}`}
+              onClick={handleStartResearch}
+              className={`bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-500 ${
+                isScrolled ? "px-4 h-8 text-xs" : "px-6"
+              }`}
             >
               Start research
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2" aria-label="Toggle menu">
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
       </nav>
-      
+
       {/* Mobile Menu - Full Screen Overlay */}
       <div
         className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
-          isMobileMenuOpen 
-            ? "opacity-100 pointer-events-auto" 
-            : "opacity-0 pointer-events-none"
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ top: 0 }}
       >
@@ -109,9 +143,7 @@ export function Navigation() {
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-5xl font-display text-foreground hover:text-muted-foreground transition-all duration-500 ${
-                  isMobileMenuOpen 
-                    ? "opacity-100 translate-y-0" 
-                    : "opacity-0 translate-y-4"
+                  isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
                 style={{ transitionDelay: isMobileMenuOpen ? `${i * 75}ms` : "0ms" }}
               >
@@ -119,26 +151,18 @@ export function Navigation() {
               </a>
             ))}
           </div>
-          
+
           {/* Bottom CTAs */}
-          <div className={`flex gap-4 pt-8 border-t border-foreground/10 transition-all duration-500 ${
-            isMobileMenuOpen 
-              ? "opacity-100 translate-y-0" 
-              : "opacity-0 translate-y-4"
-          }`}
-          style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
+          <div
+            className={`flex gap-4 pt-8 border-t border-foreground/10 transition-all duration-500 ${
+              isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
           >
-            <Button 
-              variant="outline" 
-              className="flex-1 rounded-full h-14 text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
+            <Button variant="outline" className="flex-1 rounded-full h-14 text-base" onClick={() => { setIsMobileMenuOpen(false); handleSignIn(); }}>
               Sign in
             </Button>
-            <Button 
-              className="flex-1 bg-foreground text-background rounded-full h-14 text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
+            <Button className="flex-1 bg-foreground text-background rounded-full h-14 text-base" onClick={() => { setIsMobileMenuOpen(false); handleStartResearch(); }}>
               Start research
             </Button>
           </div>

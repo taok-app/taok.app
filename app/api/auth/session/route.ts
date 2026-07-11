@@ -1,14 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  // Lightweight session endpoint used by landing nav for CTA decisions.
-  // Returns { success: true, data: { user: null | { id, email } } }
-  // Server-side auth integration (Better Auth) will replace this implementation.
-
-  // Try reading auth cookie from Better Auth if available (server runtime safe fallback)
+export async function GET(request: NextRequest) {
   try {
-    // NOTE: Placeholder: keep consistent response shape used by client.
-    return NextResponse.json({ success: true, data: { user: null } });
+    const cookie = request.cookies.get("taok_session")?.value ?? null;
+    if (!cookie) {
+      return NextResponse.json({ success: true, data: { user: null } });
+    }
+
+    // cookie value is a JSON stringified user in base64 (set by auth routes)
+    try {
+      const decoded = Buffer.from(cookie, "base64").toString("utf-8");
+      const user = JSON.parse(decoded);
+      return NextResponse.json({ success: true, data: { user } });
+    } catch (e) {
+      return NextResponse.json({ success: true, data: { user: null } });
+    }
   } catch (e) {
     return NextResponse.json({ success: false, error: { message: "Session unavailable" } }, { status: 500 });
   }

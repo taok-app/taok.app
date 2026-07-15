@@ -1,11 +1,24 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import WorkspaceHeader from '../header/WorkspaceHeader'
 import WorkspaceSidebar from '../sidebar/WorkspaceSidebar'
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const pathname = usePathname()
+
+  // Get page title from current path
+  const getPageTitle = (path: string): string | undefined => {
+    if (path === '/workspace') return undefined
+    if (path === '/workspace/team') return 'Team'
+    if (path === '/workspace/settings') return 'Settings'
+    if (path === '/workspace/help') return 'Help'
+    return undefined
+  }
+
+  const pageTitle = getPageTitle(pathname)
 
   // Close sidebar on escape key
   useEffect(() => {
@@ -48,7 +61,8 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
       {/* Mobile sidebar drawer */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 transform bg-card border-r border-border overflow-auto transition-transform duration-300 lg:hidden ${
+        id="mobile-sidebar"
+        className={`fixed inset-y-0 left-0 z-50 w-64 transform bg-card border-r border-border overflow-auto transition-transform duration-300 ease-out lg:hidden ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         role="navigation"
@@ -59,7 +73,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
       {/* Main content */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        <WorkspaceHeader onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+        <WorkspaceHeader onMenuClick={() => setSidebarOpen(!sidebarOpen)} pageTitle={pageTitle} />
         <main className="flex-1 overflow-auto" role="main">
           {children}
         </main>

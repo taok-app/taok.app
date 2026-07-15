@@ -61,10 +61,10 @@ export default function WorkspaceSidebar({ onClose }: WorkspaceSidebarProps) {
               href={item.href}
               onClick={handleNavClick}
               aria-current={active ? 'page' : undefined}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 ${
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 ${
                 active
                   ? 'bg-slate-900 text-white shadow-sm'
-                  : 'text-slate-600 hover:bg-slate-50 active:bg-slate-100'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 active:bg-slate-100'
               }`}
             >
               <Icon className="w-4 h-4 flex-shrink-0" />
@@ -85,10 +85,10 @@ export default function WorkspaceSidebar({ onClose }: WorkspaceSidebarProps) {
               href={item.href}
               onClick={handleNavClick}
               aria-current={active ? 'page' : undefined}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 ${
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 ${
                 active
                   ? 'bg-slate-900 text-white shadow-sm'
-                  : 'text-slate-600 hover:bg-slate-50 active:bg-slate-100'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 active:bg-slate-100'
               }`}
             >
               <Icon className="w-4 h-4 flex-shrink-0" />

@@ -8,14 +8,27 @@ export interface SourceSearchProps {
   value: string
   onChange: (value: string) => void
   placeholder?: string
+  /** Optional count of matching results, announced to screen readers. */
+  resultCount?: number
   className?: string
 }
 
 /** Accessible search field for filtering sources by text. */
-function SourceSearchImpl({ value, onChange, placeholder = 'Search sources…', className }: SourceSearchProps) {
+function SourceSearchImpl({
+  value,
+  onChange,
+  placeholder = 'Search sources…',
+  resultCount,
+  className,
+}: SourceSearchProps) {
   const id = React.useId()
   return (
     <div className={cn('relative', className)}>
+      {typeof resultCount === 'number' && value.trim() !== '' ? (
+        <span className="sr-only" role="status" aria-live="polite">
+          {resultCount} source{resultCount === 1 ? '' : 's'} match {value}
+        </span>
+      ) : null}
       <label htmlFor={id} className="sr-only">
         Search sources
       </label>

@@ -1,12 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useResearchStreamWithCitations } from '@/hooks/useResearchStreamWithCitations'
 import { CitationProvider } from '@/components/research/citations/CitationContext'
 import { CitationDrawer } from '@/components/research/citations/CitationDrawer'
 import MessageList from './MessageList'
 import PromptComposer from './PromptComposer'
-import { ResearchAnswerWithCitations } from '../answer/ResearchAnswerWithCitations'
+import { ResearchAnswer } from '../answer/ResearchAnswer'
 import { ResearchReasoning } from '../answer/ResearchReasoning'
 import { ResearchTimeline } from '../answer/ResearchTimeline'
 import { ResearchSources } from '../sources/ResearchSources'
@@ -105,7 +105,7 @@ export function ResearchCanvasLive({ sessionId }: ResearchCanvasLiveProps) {
               {/* Answer, reasoning, timeline */}
               {answerBlocks.length > 0 && (
                 <div className="flex-1 overflow-auto px-4 py-6 space-y-6">
-                  <ResearchAnswerWithCitations
+                  <ResearchAnswer
                     blocks={answerBlocks}
                     citations={citations}
                     streaming={streaming}
@@ -139,7 +139,7 @@ export function ResearchCanvasLive({ sessionId }: ResearchCanvasLiveProps) {
 
               {/* Prompt composer */}
               <div className="p-4 border-t bg-white">
-                <PromptComposer onSubmit={handlePromptSubmit} disabled={streaming} />
+                <PromptComposer onSubmit={handlePromptSubmit} />
               </div>
             </div>
 

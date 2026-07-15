@@ -1,13 +1,11 @@
 'use client'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import type { CitationStreamEvent } from '@/types/citations'
 import type {
   AnswerDeltaEvent,
   ReasoningDeltaEvent,
   ResearchCompletedEvent,
   ResearchProgressEvent,
-  ResearchStreamEventExtended,
   TimelineEntryEvent,
 } from '@/types/stream'
 import { isResearchStreamEvent } from '@/types/stream'
@@ -77,10 +75,11 @@ export function useResearchStreamWithCitations(
     controllerRef.current = new AbortController()
     cancelledRef.current = false
     const signal = controllerRef.current.signal
+    const streamEndpoint = endpoint
 
     async function connect() {
       try {
-        const res = await fetch(endpoint, { signal })
+        const res = await fetch(streamEndpoint, { signal })
         if (!res.body) {
           throw new Error('No response body')
         }

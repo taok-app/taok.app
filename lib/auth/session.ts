@@ -1,5 +1,3 @@
-import { getCurrentUserId } from '@/lib/auth/session';
-
 export async function getAuthContext() {
   const userId = await getCurrentUserId();
   if (!userId) return null;

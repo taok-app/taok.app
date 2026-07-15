@@ -3,11 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MessageList from './MessageList'
 import PromptComposer from './PromptComposer'
-import { ResearchStreamStatus, StreamStage } from '../../types/research'
+import type { ResearchStreamStatus } from '@/types/research'
 
 export default function ResearchCanvas() {
   const [messages, setMessages] = useState<Array<{id:string, role:'user'|'assistant', text:string}>>([])
-  const [status, setStatus] = useState<ResearchStreamStatus>({ stage: StreamStage.Completed, progress: 1 })
+  const [status] = useState<ResearchStreamStatus>({ stage: 'Completed', progress: 1 })
 
   useEffect(() => {
     // skeleton initial fetch

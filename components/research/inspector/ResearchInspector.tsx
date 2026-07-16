@@ -1,23 +1,46 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
+import { ResultsOrganizer } from '../results/ResultsOrganizer'
+import { ExportPanel } from '../results/ExportPanel'
+import { ResearchActionPanel } from '../results/ResearchActionPanel'
 
 export default function ResearchInspector() {
+  const [activeTab, setActiveTab] = useState<'results' | 'export' | 'actions'>('results')
+
+  const tabs = [
+    { id: 'results', label: 'Results', icon: '📊' },
+    { id: 'actions', label: 'Actions', icon: '⚡' },
+    { id: 'export', label: 'Export', icon: '📥' },
+  ]
+
   return (
-    <div className="p-4">
-      <h2 className="text-sm font-semibold">Inspector</h2>
-      <div className="mt-4 text-sm text-slate-600">Select an item to see details</div>
+    <div className="flex flex-col h-full bg-slate-50 border-l border-slate-200">
+      {/* Tab navigation */}
+      <div className="flex border-b border-slate-200 bg-white overflow-auto">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as 'results' | 'export' | 'actions')}
+            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
+              activeTab === tab.id
+                ? 'border-slate-900 text-slate-900'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <span className="mr-1">{tab.icon}</span>
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-      <div className="mt-6 space-y-4">
-        <section>
-          <h3 className="text-xs font-medium text-slate-600">Overview</h3>
-          <p className="mt-2 text-sm text-slate-700">No selection</p>
-        </section>
-
-        <section>
-          <h3 className="text-xs font-medium text-slate-600">Sources</h3>
-          <p className="mt-2 text-sm text-slate-700">—</p>
-        </section>
+      {/* Tab content */}
+      <div className="flex-1 overflow-auto">
+        <div className="p-4">
+          {activeTab === 'results' && <ResultsOrganizer />}
+          {activeTab === 'actions' && <ResearchActionPanel />}
+          {activeTab === 'export' && <ExportPanel />}
+        </div>
       </div>
     </div>
   )

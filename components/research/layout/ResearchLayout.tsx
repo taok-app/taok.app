@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react'
+import { ChevronRight } from 'lucide-react'
 import ResearchSidebar from '../sidebar/ResearchSidebar'
 import ResearchCanvas from '../canvas/ResearchCanvas'
 import ResearchInspector from '../inspector/ResearchInspector'
@@ -6,13 +7,31 @@ import ResearchInspector from '../inspector/ResearchInspector'
 export default function ResearchLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900">
-      <header className="border-b bg-white/60 backdrop-blur-sm px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <a href="/" className="text-lg font-semibold hover:text-slate-600">Taok Research</a>
-          <nav aria-label="Research navigation" className="flex items-center gap-4 text-sm">
-            <a href="/research" aria-current="page" className="font-medium text-slate-900">Workspace</a>
-            <a href="/research/citations" className="text-slate-500 hover:text-slate-900">Citations</a>
-          </nav>
+      <header className="border-b bg-white px-4 py-4">
+        <div className="max-w-[1600px] mx-auto space-y-3">
+          {/* Top navigation */}
+          <div className="flex items-center justify-between">
+            <a href="/" className="text-lg font-semibold hover:opacity-80 transition-opacity">Taok Research</a>
+            <nav aria-label="Research navigation" className="flex items-center gap-6 text-sm">
+              <a href="/research" className="font-medium text-slate-900">Workspace</a>
+              <a href="/research/citations" className="text-slate-600 hover:text-slate-900">Citations</a>
+              <a href="/workspace" className="text-slate-600 hover:text-slate-900">Dashboard</a>
+            </nav>
+          </div>
+
+          {/* Breadcrumbs and session info */}
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2 text-slate-600">
+              <a href="/workspace" className="hover:text-slate-900">Dashboard</a>
+              <ChevronRight className="w-4 h-4" />
+              <a href="/research" className="hover:text-slate-900">Research</a>
+              <ChevronRight className="w-4 h-4" />
+              <span className="text-slate-900 font-medium">Active Session</span>
+            </div>
+            <div className="text-xs text-slate-600">
+              Session started at {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
+          </div>
         </div>
       </header>
 

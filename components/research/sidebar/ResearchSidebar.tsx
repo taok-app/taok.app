@@ -62,6 +62,32 @@ export default function ResearchSidebar() {
         </div>
       </div>
 
+      {/* Runtime status section - shown when research is active */}
+      <div className="p-4 border-b border-slate-200 bg-blue-50">
+        <h3 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-3">Session status</h3>
+        <div className="space-y-2 text-xs">
+          <div className="flex items-center justify-between">
+            <span className="text-slate-600">Status:</span>
+            <span className="inline-flex items-center gap-1 font-medium">
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              Active
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-slate-600">Elapsed:</span>
+            <span className="font-medium text-slate-900">2m 34s</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-slate-600">Sources:</span>
+            <span className="font-medium text-slate-900">12</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-slate-600">Findings:</span>
+            <span className="font-medium text-slate-900">8</span>
+          </div>
+        </div>
+      </div>
+
       {/* Help section */}
       <div className="flex-1" />
       <div className="p-4 border-t border-slate-200 bg-slate-50">

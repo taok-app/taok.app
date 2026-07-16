@@ -84,6 +84,10 @@ export function PricingSection() {
             Monthly
           </span>
           <button
+            type="button"
+            role="switch"
+            aria-checked={isAnnual}
+            aria-label="Use annual billing"
             onClick={() => setIsAnnual(!isAnnual)}
             className="relative w-14 h-7 bg-foreground/10 rounded-full p-1 transition-colors hover:bg-foreground/20"
           >
@@ -156,25 +160,26 @@ export function PricingSection() {
               </ul>
 
               {/* CTA */}
-              <button
+              <a
+                href="/research"
                 className={`w-full py-4 flex items-center justify-center gap-2 text-sm font-medium transition-all group ${
                   plan.popular
                     ? "bg-foreground text-primary-foreground hover:bg-foreground/90"
                     : "border border-foreground/20 text-foreground hover:border-foreground hover:bg-foreground/5"
                 }`}
               >
-                {plan.cta}
+                {plan.cta === "Contact sales" ? "Explore research" : plan.cta}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              </a>
             </div>
           ))}
         </div>
 
         {/* Bottom Note */}
         <p className="mt-12 text-center text-sm text-muted-foreground">
-          All plans include SOC 2 compliant data handling, team seats, and onboarding support.{" "}
-          <a href="#" className="underline underline-offset-4 hover:text-foreground transition-colors">
-            Compare all features
+          Compare the plans above, then explore the supported research workspace.{" "}
+          <a href="/research" className="underline underline-offset-4 hover:text-foreground transition-colors">
+            Open research
           </a>
         </p>
       </div>

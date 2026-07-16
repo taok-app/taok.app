@@ -61,35 +61,51 @@ export function ResearchCanvasLive({ sessionId }: ResearchCanvasLiveProps) {
   return (
     <CitationProvider citations={citations}>
       <div className="flex flex-col h-full bg-white">
-        {/* Header with status */}
-        <div className="p-4 border-b bg-white/60 backdrop-blur-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-primary" />
-              <div className="flex flex-col">
-                <h2 className="text-sm font-semibold">Research Canvas</h2>
-                <p className="text-xs text-muted-foreground">
-                  {streaming ? `Researching… ${Math.round(status.progress * 100)}%` : 'Ready'}
+        {/* Header with status and progress */}
+        <div className="p-4 border-b bg-white">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              {streaming && (
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                </div>
+              )}
+              <div className="flex flex-col min-w-0 flex-1">
+                <h2 className="text-sm font-semibold truncate">Research Canvas</h2>
+                <p className="text-xs text-slate-600">
+                  {streaming ? `Researching… ${Math.round(status.progress * 100)}%` : 'Research complete'}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-3 ml-4 flex-shrink-0">
               {streaming && (
                 <button
                   type="button"
                   onClick={abort}
-                  className="px-2 py-1 rounded border border-border hover:bg-accent"
+                  className="px-3 py-1 text-xs rounded border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   Stop
                 </button>
               )}
               {citations.length > 0 && (
-                <span>
-                  {citations.length} claims · {sources.length} sources
-                </span>
+                <div className="flex items-center gap-4 text-xs text-slate-600 px-3 py-1 bg-slate-50 rounded-lg">
+                  <span>{citations.length} <span className="font-medium">claims</span></span>
+                  <span className="text-slate-300">·</span>
+                  <span>{sources.length} <span className="font-medium">sources</span></span>
+                </div>
               )}
             </div>
           </div>
+
+          {/* Progress bar */}
+          {streaming && (
+            <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-300"
+                style={{ width: `${Math.round(status.progress * 100)}%` }}
+              />
+            </div>
+          )}
         </div>
 
         {/* Main content area */}
@@ -139,7 +155,7 @@ export function ResearchCanvasLive({ sessionId }: ResearchCanvasLiveProps) {
 
               {/* Prompt composer */}
               <div className="p-4 border-t bg-white">
-                <PromptComposer onSubmit={handlePromptSubmit} />
+                <PromptComposer onSubmit={handlePromptSubmit} disabled={!sessionId} />
               </div>
             </div>
 

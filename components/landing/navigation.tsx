@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 const navLinks = [
   { name: "Research", href: "#features" },
@@ -15,8 +14,7 @@ const navLinks = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const router = useRouter();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,36 +23,6 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    let mounted = true;
-    fetch("/api/auth/session")
-      .then((res) => res.json())
-      .then((json) => {
-        if (!mounted) return;
-        const user = json?.data?.user ?? null;
-        setIsAuthenticated(Boolean(user));
-      })
-      .catch(() => setIsAuthenticated(false));
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  const handleStartResearch = () => {
-    if (isAuthenticated === null) {
-      // unknown => go to sign-up as safe default
-      router.push("/sign-up");
-      return;
-    }
-    if (isAuthenticated) {
-      router.push("/workspace");
-    } else {
-      router.push("/sign-up");
-    }
-  };
-
-  const handleSignIn = () => router.push("/sign-in");
 
   return (
     <header
@@ -75,7 +43,7 @@ export function Navigation() {
           }`}
         >
           {/* Logo */}
-          <a onClick={() => router.push("/")} className="flex items-center gap-2 group cursor-pointer">
+          <a href="/" className="flex items-center gap-2 group">
             <span
               className={`font-display tracking-tight transition-all duration-500 ${
                 isScrolled ? "text-xl" : "text-2xl"
@@ -86,7 +54,7 @@ export function Navigation() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-12">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -100,28 +68,36 @@ export function Navigation() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            <button
-              onClick={handleSignIn}
+          <div className="hidden lg:flex items-center gap-4">
+            <a
+              href="/workspace"
               className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${
                 isScrolled ? "text-xs" : "text-sm"
               }`}
             >
-              Sign in
-            </button>
+              Workspace
+            </a>
+            <a
+              href="/research/citations"
+              className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${
+                isScrolled ? "text-xs" : "text-sm"
+              }`}
+            >
+              Citations
+            </a>
             <Button
               size="sm"
-              onClick={handleStartResearch}
+              asChild
               className={`bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-500 ${
                 isScrolled ? "px-4 h-8 text-xs" : "px-6"
               }`}
             >
-              Start research
+              <a href="/research">Start research</a>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2" aria-label="Toggle menu">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden p-2" aria-label="Toggle menu">
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -129,7 +105,7 @@ export function Navigation() {
 
       {/* Mobile Menu - Full Screen Overlay */}
       <div
-        className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
+        className={`lg:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ top: 0 }}
@@ -159,11 +135,15 @@ export function Navigation() {
             }`}
             style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
           >
-            <Button variant="outline" className="flex-1 rounded-full h-14 text-base" onClick={() => { setIsMobileMenuOpen(false); handleSignIn(); }}>
-              Sign in
+            <Button variant="outline" className="flex-1 rounded-full h-14 text-base" asChild>
+              <a href="/workspace" onClick={() => setIsMobileMenuOpen(false)}>
+                Workspace
+              </a>
             </Button>
-            <Button className="flex-1 bg-foreground text-background rounded-full h-14 text-base" onClick={() => { setIsMobileMenuOpen(false); handleStartResearch(); }}>
-              Start research
+            <Button className="flex-1 bg-foreground text-background rounded-full h-14 text-base" asChild>
+              <a href="/research" onClick={() => setIsMobileMenuOpen(false)}>
+                Start research
+              </a>
             </Button>
           </div>
         </div>

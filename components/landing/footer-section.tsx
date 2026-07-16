@@ -1,39 +1,23 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
 import { AnimatedWave } from "./animated-wave";
 
 const footerLinks = {
-  Workspace: [
-    { name: "Research", href: "#features" },
+  Explore: [
+    { name: "Dashboard", href: "/workspace" },
+    { name: "Research workspace", href: "/research" },
+    { name: "Citation workspace", href: "/research/citations" },
+  ],
+  Product: [
+    { name: "Capabilities", href: "#features" },
     { name: "How it works", href: "#how-it-works" },
     { name: "Integrations", href: "#integrations" },
     { name: "Pricing", href: "#pricing" },
   ],
-  Platform: [
-    { name: "API Reference", href: "#" },
-    { name: "Documentation", href: "#" },
-    { name: "Changelog", href: "#" },
-    { name: "Status", href: "#" },
-  ],
-  Company: [
-    { name: "About", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Careers", href: "#", badge: "Hiring" },
-    { name: "Contact", href: "#" },
-  ],
-  Legal: [
-    { name: "Privacy", href: "#" },
-    { name: "Terms", href: "#" },
+  Trust: [
     { name: "Security", href: "#security" },
   ],
 };
-
-const socialLinks = [
-  { name: "Twitter", href: "#" },
-  { name: "GitHub", href: "#" },
-  { name: "LinkedIn", href: "#" },
-];
 
 export function FooterSection() {
   return (
@@ -49,27 +33,13 @@ export function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-12 lg:gap-8">
             {/* Brand Column */}
             <div className="col-span-2">
-              <a href="#" className="inline-flex items-center gap-2 mb-6">
+              <a href="/" className="inline-flex items-center gap-2 mb-6">
                 <span className="text-2xl font-display">Taok</span>
               </a>
 
-              <p className="text-muted-foreground leading-relaxed mb-8 max-w-xs">
+              <p className="text-muted-foreground leading-relaxed max-w-xs">
                 The AI-native GTM workspace. Research companies, discover leads, and execute with confidence.
               </p>
-
-              {/* Social Links */}
-              <div className="flex gap-6">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group"
-                  >
-                    {link.name}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                  </a>
-                ))}
-              </div>
             </div>
 
             {/* Link Columns */}
@@ -101,15 +71,12 @@ export function FooterSection() {
         {/* Bottom Bar */}
         <div className="py-8 border-t border-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            2025 Taok. All rights reserved.
+            2026 Taok. Research workspace preview.
           </p>
 
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500" />
-              All systems operational
-            </span>
-          </div>
+          <a href="/research" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Continue to research
+          </a>
         </div>
       </div>
     </footer>
